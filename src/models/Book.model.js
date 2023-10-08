@@ -15,4 +15,24 @@ const bookSchema = new Schema({
 
 const BookModel = model("Book", bookSchema)
 
+export const findAllBooksModel = async () => {
+    const allBooks = await BookModel.find().populate('Author')
+    return allBooks
+}
+
+export const createBookModel = async (data) => {
+    const newBook = await BookModel.create(data)
+    return newBook
+}
+
+export const updateBookModel = async (id, data) => {
+    const updatedBook = await BookModel.findByIdAndUpdate(id, data)
+    return updatedBook
+}
+
+export const deleteBookModel = async (id) => {
+    const deletedBook = await BookModel.findByIdAndRemove(id)
+    return deletedBook
+}
+
 export default BookModel;
