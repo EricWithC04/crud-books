@@ -3,7 +3,7 @@ import {
     createBookModel, 
     updateBookModel, 
     deleteBookModel 
-} from "../models/Book.model"
+} from "../models/Book.model.js"
 
 export const getAllBooks = async (req, res) => {
     try {
