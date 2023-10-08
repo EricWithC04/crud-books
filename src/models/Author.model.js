@@ -1,7 +1,13 @@
 import { model, Types, Schema } from 'mongoose'
 
 const authorSchema = new Schema({
-    id: String
+    name: String,
+    surname: String,
+    bibliography: String,
+    books: [{
+        type: Types.ObjectId,
+        ref: 'Book'
+    }]
 }, {
     versionKey: false
 })
