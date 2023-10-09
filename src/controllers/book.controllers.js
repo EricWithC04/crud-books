@@ -4,6 +4,7 @@ import {
     updateBookModel, 
     deleteBookModel 
 } from "../models/Book.model.js"
+import AuthorModel from "../models/Author.model.js"
 
 export const getAllBooks = async (req, res) => {
     try {
@@ -33,10 +34,20 @@ export const getAllBooks = async (req, res) => {
 export const createBook = async (req, res) => {
     try {
         const { title, genre, authorId } = req.body
+
+        const author = await AuthorModel.findById(authorId)
+
+        if (!author) {
+            res.status(404).send({
+                status: 404,
+                message: 'No se han encontrado el autor con ese ID!'
+            })
+        }
+
         const newBook = await createBookModel({
             title,
             genre,
-            author: authorId
+            author: author._id
         })
 
         if (!newBook) {
@@ -45,6 +56,14 @@ export const createBook = async (req, res) => {
                 message: 'No se ha podido crear el Libro!'
             })
         }
+
+        author.books.push(newBook)
+
+        await AuthorModel.findByIdAndUpdate(author._id, {
+            books: { $push: newBook._id }
+        }, { new: true })
+
+        await author.save();
 
         res.status(201).send({ message: 'libro creado correctamente!', newBook })
     } catch (err) {
