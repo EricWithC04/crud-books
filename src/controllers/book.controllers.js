@@ -4,6 +4,7 @@ import {
     updateBookModel, 
     deleteBookModel 
 } from "../models/Book.model.js"
+import __dirname from "../helpers/dirname.js"
 import AuthorModel from "../models/Author.model.js"
 
 export const getAllBooks = async (req, res) => {
@@ -44,10 +45,24 @@ export const createBook = async (req, res) => {
             })
         }
 
+        if (!req.files || Object.keys(req.files).length === 0) {
+            res.status(400).send("No se adjuntaron archivos.");
+        }
+
+        let file = req.files.cover
+        let path = `${__dirname}/covers/${file.name}`
+
+        file.mv(path, (err) => {
+            if (err) {
+                res.status(500).send("No se pudo subír la portada!")
+            }
+        })
+
         const newBook = await createBookModel({
             title,
             genre,
-            author: author._id
+            author: author._id,
+            cover: path
         })
 
         if (!newBook) {
