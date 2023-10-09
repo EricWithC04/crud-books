@@ -16,7 +16,7 @@ export const getAllBooks = async (req, res) => {
                 message: 'No se han encontrado Libros!'
             })
         }
-
+        
         res.status(200).send(allBooks)
     } catch (err) {
         console.error(err);
@@ -59,9 +59,9 @@ export const createBook = async (req, res) => {
 
         author.books.push(newBook)
 
-        await AuthorModel.findByIdAndUpdate(author._id, {
-            books: { $push: newBook._id }
-        }, { new: true })
+        // await AuthorModel.findByIdAndUpdate(author._id, {
+        //     books: { $push: newBook._id }
+        // }, { new: true })
 
         await author.save();
 

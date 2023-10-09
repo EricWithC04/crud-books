@@ -18,7 +18,9 @@ const bookSchema = new Schema({
 const BookModel = model("Book", bookSchema)
 
 export const findAllBooksModel = async () => {
-    const allBooks = await BookModel.find().populate('authors')
+    const allBooks = await BookModel.find().populate('author', {
+        name: 1
+    })
     return allBooks
 }
 
