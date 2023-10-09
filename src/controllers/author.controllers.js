@@ -28,12 +28,12 @@ export const getAllAuthor = async (_req, res) => {
 
 export const createAuthor = async (req, res) => {
     try {
-        const { name, surname, bibliography } = req.body
+        const { name, surname, biography } = req.body
 
         const newAuthor = await createAuthorModel({
             name,
             surname,
-            bibliography
+            biography
         })
 
         if (!newAuthor) {

@@ -36,7 +36,7 @@ export const createBook = async (req, res) => {
         const newBook = await createBookModel({
             title,
             genre,
-            authorId
+            author: authorId
         })
 
         if (!newBook) {

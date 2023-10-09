@@ -4,8 +4,10 @@ const bookSchema = new Schema({
     id: String,
     title: String,
     genre: String,
+    publicationDate: Date,
+    cover: String,
     author: {
-        type: Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: 'Author'
     }
 }, {
@@ -16,7 +18,7 @@ const bookSchema = new Schema({
 const BookModel = model("Book", bookSchema)
 
 export const findAllBooksModel = async () => {
-    const allBooks = await BookModel.find().populate('Author')
+    const allBooks = await BookModel.find().populate('authors')
     return allBooks
 }
 

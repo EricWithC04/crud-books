@@ -3,9 +3,9 @@ import { model, Types, Schema } from 'mongoose'
 const authorSchema = new Schema({
     name: String,
     surname: String,
-    bibliography: String,
+    biography: String,
     books: [{
-        type: Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: 'Book'
     }]
 }, {
@@ -15,7 +15,7 @@ const authorSchema = new Schema({
 const AuthorModel = model('Author', authorSchema)
 
 export const findAllAuthorsModel = async () => {
-    const allAuthors = await AuthorModel.find().populate('Book')
+    const allAuthors = await AuthorModel.find().populate('books')
     return allAuthors
 }
 
