@@ -7,6 +7,7 @@ import bookRouter from "./routes/book.routes.js";
 import authorRouter from "./routes/author.routes.js";
 
 import environments from "./environments/environments.js";
+import fileUpload from "express-fileupload";
 const {
     PORT
 } = environments
@@ -18,6 +19,9 @@ app.use(helmet())
 app.use(morgan("dev"))
 app.use((express.json()))
 app.use((express.urlencoded({ extended: true })))
+app.use(fileUpload({
+    createParentPath: true
+}))
 
 app.use('/book', bookRouter)
 app.use('/author', authorRouter)
