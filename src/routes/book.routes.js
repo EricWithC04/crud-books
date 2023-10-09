@@ -4,7 +4,7 @@ const router = Router()
 
 router.get('/', getAllBooks)
 router.post('/', createBook)
-router.put('/', updateBook)
-router.delete('/', deleteBook)
+router.put('/:id', updateBook)
+router.delete('/:id', deleteBook)
 
 export default router
